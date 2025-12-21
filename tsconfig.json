@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    // File Layout
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "commonjs",
+    "target": "esnext",
+    // Other Outputs
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "sourceMap": true,
+    // "declaration": true,
+    // "declarationMap": true,
+    // "declarationDir": "./src/types",
+    // Recommended Options
+    "strict": true,
+    "isolatedModules": true,
+    "noUncheckedSideEffectImports": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+  },
+  "ts-node": {
+    "files": true
+  }
+}

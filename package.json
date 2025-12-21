@@ -1,0 +1,45 @@
+{
+  "name": "ecomm-monolithic-ts",
+  "version": "1.0.0",
+  "description": "A Node.js Typescript Practice API Project of E-commerce",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "npx ts-node src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "db:generate": "drizzle-kit generate --config=src/common/db/drizzle.config.ts",
+    "db:migrate": "drizzle-kit migrate --config=src/common/db/drizzle.config.ts",
+    "db:init": "npx ts-node src/common/db/init.ts"
+  },
+  "author": "Tejas Soni",
+  "type": "commonjs",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "drizzle-orm": "^0.45.1",
+    "drizzle-seed": "^0.3.1",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.16.3",
+    "zod": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^25.0.3",
+    "@types/pg": "^8.16.0",
+    "@typescript-eslint/eslint-plugin": "^8.50.0",
+    "@typescript-eslint/parser": "^8.50.0",
+    "drizzle-kit": "^0.31.8",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.7.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}

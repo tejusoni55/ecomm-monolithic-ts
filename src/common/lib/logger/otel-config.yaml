@@ -1,0 +1,39 @@
+# OpenTelemetry Collector Configuration for local development
+# Receives traces and logs from services via OTLP and exports to BetterStack
+# BetterStack ingestion endpoint: https://in.logs.betterstack.com/v1/logs
+
+receivers:
+  # OTLP receivers for traces and logs from services (gRPC and HTTP)
+  otlp:
+    protocols:
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  # Batch processor for efficient exporting
+  batch:
+
+exporters:
+  # Console debug for debugging
+  debug:
+    verbosity: detailed
+
+  # Add exporter for Better Stack:
+  otlphttp/betterstack:
+    endpoint: "https://s1644909.eu-nbg-2.betterstackdata.com"
+    headers:
+      Authorization: "Bearer ${BETTERSTACK_LOGS_TOKEN}"
+
+service:
+  pipelines:
+    # Traces pipeline: Receive via OTLP, process, and export to BetterStack
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug, otlphttp/betterstack]
+    
+    # Logs pipeline: Receive via OTLP, process, and export to BetterStack
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug, otlphttp/betterstack]

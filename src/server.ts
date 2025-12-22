@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import router from "./common/routes";
+import { logger } from "./common/lib/logger";
 const app: Application = express();
 
 // Security middleware
@@ -41,7 +42,7 @@ app.use((req, res) => {
 
 // Error handler
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-  console.error("Unhandled error", { error: err.message, stack: err.stack });
+  logger.error("Unhandled error", { error: err.message, stack: err.stack });
   res.status(500).json({ error: "Internal server error" });
 });
 

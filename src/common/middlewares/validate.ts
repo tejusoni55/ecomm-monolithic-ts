@@ -1,5 +1,6 @@
-import { z, ZodObject } from "zod";
+import { ZodObject } from "zod";
 import { Request, Response, NextFunction } from "express";
+import { logger } from "../lib/logger";
 
 export const validate = (schema: ZodObject) => (req: Request, res: Response, next: NextFunction) => {
   const result = schema.safeParse({
@@ -9,6 +10,7 @@ export const validate = (schema: ZodObject) => (req: Request, res: Response, nex
   });
 
   if (!result.success) {
+    logger.error("Validation failed", { errors: result.error });
     return res.status(400).json({
       message: "Validation failed",
       errors: JSON.parse(result?.error?.message),

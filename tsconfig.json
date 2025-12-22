@@ -19,6 +19,8 @@
     "moduleDetection": "force",
     "skipLibCheck": true,
   },
+  "include": ["src"],
+  "exclude": ["dist", "node_modules", "tests", "jest.config.ts", "tsconfig.jest.json"],
   "ts-node": {
     "files": true
   }

@@ -85,4 +85,5 @@ npm start
 - JWT (Authentication)
 - bcrypt (Password Hashing)
 - Helmet, CORS, express-rate-limit (Security)
-
+- Jest - Unit testing
+- K6 - Performance testing

@@ -1,5 +1,6 @@
 import * as jwt from "jsonwebtoken";
 import { env } from "../../config/env";
+import logger from "../lib/logger";
 type jwtPayload = {
   id: number;
 };
@@ -17,11 +18,16 @@ export default {
   },
 
   jwtVerify: function (token: string) {
-    let key = env.JWT_SECRET;
-    let decoded = jwt.verify(token, key);
-    if (typeof decoded === "string") {
+    try {
+      let key = env.JWT_SECRET;
+      let decoded = jwt.verify(token, key);
+      if (typeof decoded === "string") {
+        return {};
+      }
+      return decoded;
+    } catch (error) {
+      logger.error("Error vliadating JWT token ", error);
       return {};
     }
-    return decoded;
   },
 };

@@ -11,7 +11,11 @@
     "db:migrate": "drizzle-kit migrate --config=./src/common/db/drizzle.config.ts",
     "db:init": "npx ts-node ./src/common/db/init.ts",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "k6": "k6 run k6/main.js",
+    "k6:load": "k6 run -e TEST_TYPE=load k6/main.js",
+    "k6:stress": "k6 run -e TEST_TYPE=stress k6/main.js",
+    "k6:spike": "k6 run -e TEST_TYPE=spike k6/main.js"
   },
   "author": "Tejas Soni",
   "type": "commonjs",

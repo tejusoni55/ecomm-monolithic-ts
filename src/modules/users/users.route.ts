@@ -11,7 +11,7 @@ const router = express.Router();
  * '/api/v1/users/':
  *  post:
  *      tags: 
- *          - User
+ *          - Users
  *      summary: Register a New User
  *      requestBody:
  *          required: true
@@ -39,7 +39,7 @@ router.post("/", validate(registerUserSchema), userController.register);
  * '/api/v1/users/login':
  *  post:
  *      tags: 
- *          - User
+ *          - Users
  *      summary: Login
  *      requestBody:
  *          required: true
@@ -66,7 +66,7 @@ router.post("/login", validate(loginSchema), userController.loginUser);
  * '/api/v1/users/profile':
  *  get:
  *      tags:
- *          - User
+ *          - Users
  *      summary: Get profile details
  *      security:
  *          - bearerAuth: []

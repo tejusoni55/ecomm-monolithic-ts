@@ -1,0 +1,58 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: postgres
+    volumes:
+      - postgres_meta:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=ecomm-monolithic
+    networks:
+      - ecomm-network
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.120.0
+    container_name: otel-collector
+    ports:
+      - "4318:4318"
+    volumes:
+      - ./otel/otel-config.yaml:/etc/otel/config.yaml
+    command: ["--config", "/etc/otel/config.yaml"]
+    environment:
+      - BETTERSTACK_LOGS_TOKEN=${BETTERSTACK_LOGS_TOKEN:-yUdG1zwKVgX1vbBmLyRMoHvP}
+    networks:
+      - ecomm-network
+
+  # Backend Service
+  api:
+    image: ecomm-api:local
+    container_name: ecomm-api
+    depends_on:
+      - postgres
+    environment:
+      NODE_ENV: production
+
+      # DB connection
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: ecomm-monolithic
+
+      # OpenTelemetry
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector:4318
+      OTEL_SERVICE_NAME: ecomm-api
+
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432/ecomm-monolithic
+    ports:
+      - "8000:8000"
+    networks:
+      - ecomm-network
+
+volumes:
+  postgres_meta:
+
+networks:
+  ecomm-network:
+    driver: bridge

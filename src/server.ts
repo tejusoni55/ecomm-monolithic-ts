@@ -6,6 +6,7 @@ import router from "./common/routes";
 import { logger } from "./common/lib/logger";
 import swaggerDoc from "./common/utils/swagger";
 import { env } from "./config/env";
+import { checkPgConnection } from "./config/database";
 const port = env.PORT ?? 8000;
 
 const app: Application = express();
@@ -34,6 +35,11 @@ app.get("/health", (req: Request, res: Response) => {
     success: true,
     message: "healthy",
   });
+});
+
+app.get("/ready", async (req: Request, res: Response) => {
+  await checkPgConnection();
+  res.json({ status: "ready" });
 });
 
 // All of the routes
